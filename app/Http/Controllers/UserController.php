@@ -37,7 +37,7 @@ class UserController extends Controller
    public function store(Request $request)
 {
 
-    // try {
+    try {
 
             // dd($request->all()); // pour tester les donne À supprimer après test
 
@@ -61,11 +61,11 @@ class UserController extends Controller
 
         return redirect()->route("user.index")->with("success", "Utilisateur ajouté avec succès");
 
-    // } catch (\Exception $e) {
-    //     //  dd($e->getMessage()); // pour tester les donne  Voir l'erreur exacte
-    //     return redirect()->back()->withInput()->with("error", "Erreur lors de la création : " . $e->getMessage());
+    } catch (\Exception $e) {
+        //  dd($e->getMessage()); // pour tester les donne  Voir l'erreur exacte
+        return redirect()->back()->withInput()->with("error", "Erreur lors de la création : " . $e->getMessage());
         
-    // }
+    }
 }
 
         public function show($id){
@@ -100,40 +100,40 @@ class UserController extends Controller
                 return redirect()->route("user.index")->with("success","user updated successfully!");
 }
 
-//     public function destroy($id){
-//         Product::find($id)->delete();
-//         return redirect()->route("product.index")->with("success","product deleted successfully!");
-//     }
+    public function destroy($id){
+       User::find($id)->delete();
+        return redirect()->route("user.index")->with("success","user deleted successfully!");
+    }
 
-//     public function trashedProducts(Request $request){
-//         $query = Product::query()->onlyTrashed();
-//         if(request()->has("search") && $request->search){
-//             $query = $query->where("name","like","%".$request->search."%")
-//                         ->orWhere('description','like',"%".$request->search."%");
-//         }
-//         $products = $query->paginate(5);
-//         return view("product.deleted-products",compact("products"));
-//     }
+    public function trashedUsers(Request $request){
+        $query =User::query()->onlyTrashed();
+        if(request()->has("search") && $request->search){
+            $query = $query->where("name","like","%".$request->search."%")
+                        ->orWhere('description','like',"%".$request->search."%");
+        }
+        $users = $query->paginate(5);
+        return view("user.deleted-users",compact("users"));
+    }
 
-//     public function showTrashed($id){
-//         $product = Product::onlyTrashed()->findOrFail($id);
-//         return view("product.show",compact("product"));
-//     }
+    public function showTrashed($id){
+        $user =User::onlyTrashed()->findOrFail($id);
+        return view("user.show",compact("user"));
+    }
 
-//     public function restoreProduct($id){
-//         $product = Product::onlyTrashed()->findOrFail($id);
-//         $product->restore();
-//         return redirect()->route("product.index")->with("success","product restored successfully");
-//     }
+    public function restoreProduct($id){
+        $user =User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+        return redirect()->route("user.index")->with("success","user restored successfully");
+    }
 
-//     public function destroyProduct($id){
-//         $product = Product::onlyTrashed()->findOrFail($id);
-//         if ($product->image && Storage::exists($product->image)) {
-//             Storage::delete($product->image);
-//         }
-//         $product->forceDelete();
+    public function destroyProduct($id){
+        $user =User::onlyTrashed()->findOrFail($id);
+        if ($user->image && Storage::exists($user->image)) {
+            Storage::delete($user->image);
+        }
+        $user->forceDelete();
 
-//         return redirect()->route("product.index")->with("success","product was force deleted successfully!");
-//     }
+        return redirect()->route("user.index")->with("success","user was force deleted successfully!");
+    }
 
 }
