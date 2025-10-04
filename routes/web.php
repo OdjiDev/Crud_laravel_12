@@ -20,7 +20,7 @@ Route::post('/update-product/{id}',[ProductController::class,'update'])->name('p
 Route::delete('/destroy-product/{id}',[ProductController::class,'destroy'])->name('product.destroy');
 Route::get('/show-trashed-product/{id}',[ProductController::class,'showTrashed'])->name('trashed.show');
 
-Route::get('/deleted-users',[ProductController::class,'trashedProducts'])->name('product.trashed');
+Route::get('/deleted-product',[ProductController::class,'trashedProducts'])->name('product.trashed');
 Route::put('restore-product/{id}',[ProductController::class,'restoreProduct'])->name('product.restore');
 Route::delete('delete-product/{id}',[ProductController::class,'destroyProduct'])->name('product.delete');
 
@@ -44,4 +44,3 @@ Route::get('/deleted-users',[UserController::class,'trashedUses'])->name('user.t
 Route::put('restore-user/{id}',[UserController::class,'restoreUser'])->name('user.restore');
 Route::delete('delete-user/{id}',[UserController::class,'destroyUser'])->name('user.delete');
 
-Route::get('/users',[UserController::class,'index'])->name('user.index');

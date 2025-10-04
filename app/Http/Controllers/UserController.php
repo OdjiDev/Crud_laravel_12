@@ -6,10 +6,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(Request $request){
-        // user = User::all();
+         $users = User::all();
+
+             // Si c'est une requête API
+    if (request()->wantsJson() || request()->is('api/*')) {
+        return response()->json([
+            'success' => true,
+            'data' => $users
+        ]); }
+
         $query = User::query();
         if(request()->has("search") && $request->search){
             $query = $query->where("nom","like","%".$request->search."%")
@@ -25,28 +34,39 @@ class UserController extends Controller
     }
   
 
-    public function store(Request $request){
+   public function store(Request $request)
+{
+
+    // try {
+
+            // dd($request->all()); // pour tester les donne À supprimer après test
+
         $validated = $request->validate([
-             'nom' => 'required|string',
-            'prenom' => 'required|string',
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'telephone' => 'required|string',
-            'password' => 'required|string|min:6',
-            'role' => 'required|string',
-            'statut' => 'required|string',
-            // 'email_verified_at'=> 'timestamp|date',
-           
-        //    'date_inscription' => 'timestamp|date',
-            //   "created_at"=> "required",
-            //    "updated_at"=> "required",
+            'telephone' => 'required|string|max:20',
+            'password' => 'required|min:8',
+            'role' => 'required|in:ADMIN,USER,MANAGER', // En majuscules
+            'statut' => 'required|in:Active,Inactive' 
+        ]);
 
+             // Voir les données validées
+        // dd($validated); // pour tester les donne À supprimer après test
 
-            ]);
-           
-            User::create($validated);
+        // Hash du mot de passe
+        $validated['password'] = Hash::make($validated['password']);
 
-            return redirect()->route("user.index")->with("success","user added successfully");
-        }
+        User::create($validated);
+
+        return redirect()->route("user.index")->with("success", "Utilisateur ajouté avec succès");
+
+    // } catch (\Exception $e) {
+    //     //  dd($e->getMessage()); // pour tester les donne  Voir l'erreur exacte
+    //     return redirect()->back()->withInput()->with("error", "Erreur lors de la création : " . $e->getMessage());
+        
+    // }
+}
 
         public function show($id){
             $user = User::find($id);
