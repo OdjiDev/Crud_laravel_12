@@ -5,7 +5,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <h2>user List</h2>
+                        <h2>users List</h2>
                     </div>
                     <div class="col">
                         <div class="row">
@@ -48,7 +48,7 @@
                             <th scope="col">email</th>
                             <th scope="col">Telephone</th>
                             <th scope="col">Role</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Statut</th>
                            
                         </tr>
                     </thead>
@@ -62,7 +62,7 @@
                                     <td>{{ $user->email}}</td>
                                     <td>{{ $user->telephone}}</td>
                                       <td>{{ $user->role}}</td>
-                                    <td>{{ $user->status}}</td>
+                                    <td>{{ $user->statut}}</td>
                                     <td>{{ str($user->description)->words(5)}}</td>
                                     <td><a href="{{ route('user.show', $user->id) }} " class="btn btn-success btn-sm">show</a>
                                     <td><a href="{{ route('user.edit', $user->id) }} " class="btn btn-primary btn-sm">edit</a>

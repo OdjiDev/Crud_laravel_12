@@ -19,10 +19,13 @@ class UserController extends Controller
             'data' => $users
         ]); }
 
+
+        
+
         $query = User::query();
         if(request()->has("search") && $request->search){
             $query = $query->where("nom","like","%".$request->search."%")
-                        ->orWhere('prenon','like',"%".$request->search."%");
+                        ->orWhere('prenom','like',"%".$request->search."%");
         }
         $users = $query->latest()->paginate(8);
 

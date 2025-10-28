@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
+// use App\Http\routes\api.php;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,3 +45,13 @@ Route::get('/deleted-users',[UserController::class,'trashedUses'])->name('user.t
 Route::put('restore-user/{id}',[UserController::class,'restoreUser'])->name('user.restore');
 Route::delete('delete-user/{id}',[UserController::class,'destroyUser'])->name('user.delete');
 
+
+
+
+
+
+
+
+//on inclu les routes api ici
+
+include "api.php";
