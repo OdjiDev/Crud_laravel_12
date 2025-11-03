@@ -2,13 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\Api\UserController as ApiUserController;
 
 // routes/api.php
 
-
-// Cette ligne génère automatiquement les 5 routes CRUD (GET, POST, GET/{id}, PUT/PATCH/{id}, DELETE/{id})
-
-Route::apiResource('api/users',UserController::class);
+// Déclare les routes API sous le préfixe `/api` (géré par RouteServiceProvider)
+// Utilisez `Route::apiResource('users', ...)` — la route complète deviendra `/api/users`.
+Route::apiResource('users', ApiUserController::class);
