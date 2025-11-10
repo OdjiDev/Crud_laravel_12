@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 
 
-//on inclu les routes api ici
-
-include "api.php";
+// Les routes API ne doivent pas être incluses manuellement ici.
+// Le fichier `routes/api.php` est chargé automatiquement par
+// RouteServiceProvider et est associé au middleware `api`.
+// include "api.php"; // removed to avoid CSRF/session middleware on API routes
