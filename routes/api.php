@@ -13,4 +13,4 @@ use App\Http\Controllers\api\ProduitController;
 Route::apiResource('users', UserController::class);
 
 // Routes pour les produits (avec apiResource)
-Route::apiResource('api/produits', ProduitController::class);
+Route::apiResource('produits', ProduitController::class);
